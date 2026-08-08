@@ -65,21 +65,29 @@ func _ready() -> void:
 	
 	ground_map.set_cells_terrain_connect(used_cells, 0, 0)
 	
+	# Create home tiles
+	ground_map.set_cell(player_start_pos * Vector2(3,0), 0, Vector2i(6,0))
+	
 	# Blackout tiles
 	for ground_cell in ground_map.get_used_cells():
-		overlay.set_cell(ground_cell, 1, Vector2i(1,1))
+		overlay.set_cell(ground_cell, 1, Vector2i(round(randf()) * 3,0)) # 50/50 between 0 and 3
 		
 	# Place player and start stamina
-	$Player.position = ground_map.map_to_local(player_start_pos * Vector2(3,0)) 
+	$Player.global_position = ground_map.to_global(
+		ground_map.map_to_local(player_start_pos * Vector2(3,0)) 
+		)
 	$PlayerStamina.start()
 		
 # Player-specific stuff
-var player_stamina = 10
+var player_stamina = 14
 var player_flags = {
-	"blue": 5,
+	"blue": 8,
 	"green": 2,
 	"red": 2,
 }
+
+var current_flag = "blue"
+const all_flags = ["blue", "red", "green"]
 
 func _physics_process(_delta: float) -> void:
 	# Process overlay for revealing paths
@@ -106,9 +114,33 @@ func _physics_process(_delta: float) -> void:
 	# place flags if necessary
 	if Input.is_action_just_pressed("PLACE"):
 		var location = flags.local_to_map(flags.to_local($Player.position))
-		if flags.get_cell_source_id(location) == -1:
-			flags.set_cell(location, 0, Vector2(0,0))
-
+		if player_flags[current_flag] > 0:
+			# Offsets for the flag atlas are prob gonna be hardcoded
+			match current_flag:
+				"blue":
+					flags.set_cell(location, 0, Vector2(0,0))
+				"red":
+					flags.set_cell(location, 0, Vector2(1,0))
+				"green":
+					flags.set_cell(location, 0, Vector2(2,0))
+					
+			# Remove flag
+			player_flags[current_flag] -= 1
+			# Update display to match
+			ui.get_node("Flags/FlagCount").text = str(player_flags[current_flag]) + " flags"
+	
+	# check if player rotated flags
+	if Input.is_action_just_pressed("ROTATE"):
+		# Swap the string
+		# Gets index of current flag from array, adds 1, modulo len flag list, then get from that again
+		current_flag = all_flags[(all_flags.find(current_flag) + 1) % len(all_flags)]
+		# Swap mini icon
+		ui.get_node("Flags/TextureRect").texture.region = Rect2(
+			(all_flags.find(current_flag) * 16) % 48, 0, 16, 16
+		)
+		# Change remaining flag count to match
+		ui.get_node("Flags/FlagCount").text = str(player_flags[current_flag]) + " flags"
+	
 	# drain player stamina
 	if $Player.velocity.length() > 0 and $PlayerStamina.is_stopped():
 		player_stamina -= 1
@@ -116,7 +148,7 @@ func _physics_process(_delta: float) -> void:
 		ui.get_node("DayCount").text = str(player_stamina) + " days left"
 		$PlayerStamina.start()
 		if player_stamina <= 0:
-			# Player has ran out of stamina, pull screen transition and 
+			# Player has ran out of stamina, retreat to base and restart
 			respawn()
 			
 func respawn():
@@ -130,11 +162,17 @@ func respawn():
 	$Player.position = ground_map.map_to_local(player_start_pos * Vector2(3,0)) 
 	$PlayerStamina.start()
 	# reset stamina
-	player_stamina = 10
+	player_stamina = 14
 	ui.get_node("DayCount").text = str(player_stamina) + " days left"
+	# reset flags 
+	player_flags = {
+		"blue": 8,
+		"green": 2,
+		"red": 2,
+	}
 	# reset blackout
 	for ground_cell in ground_map.get_used_cells():
-		overlay.set_cell(ground_cell, 1, Vector2i(1,1))
+		overlay.set_cell(ground_cell, 1, Vector2i(round(randf()) * 3,0))
 	
 	# Screen transition off
 	var transition_off = create_tween()
