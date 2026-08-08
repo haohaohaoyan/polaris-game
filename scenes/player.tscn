@@ -1,0 +1,37 @@
+[gd_scene format=3 uid="uid://cgi0bemhdm4td"]
+
+[ext_resource type="Script" uid="uid://dgc8h53jigvdi" path="res://scenes/player.gd" id="1_3vyb7"]
+[ext_resource type="Texture2D" uid="uid://dw4j3bxmeoo6p" path="res://icon.svg" id="2_g2els"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_5c0fr"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qhqgy"]
+atlas = ExtResource("2_g2els")
+region = Rect2(32, 32, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_5c0fr"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qhqgy")
+}],
+"loop": 1,
+"name": &"default",
+"speed": 5.0
+}, {
+"frames": [],
+"loop": 1,
+"name": &"new_animation",
+"speed": 5.0
+}]
+
+[node name="Player" type="CharacterBody2D" unique_id=751643800]
+script = ExtResource("1_3vyb7")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=420528985]
+shape = SubResource("CircleShape2D_5c0fr")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=933504427]
+sprite_frames = SubResource("SpriteFrames_5c0fr")
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=170095549]
