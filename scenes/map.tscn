@@ -2,7 +2,9 @@
 
 [ext_resource type="Script" uid="uid://bwlcbjh7y28pk" path="res://scripts/map.gd" id="1_paxxb"]
 [ext_resource type="Texture2D" uid="uid://dl2586410e3w" path="res://asset/basetileset.png" id="2_gldc4"]
+[ext_resource type="Texture2D" uid="uid://ceroetp32hbow" path="res://asset/overlay.png" id="3_0cso3"]
 [ext_resource type="PackedScene" uid="uid://cgi0bemhdm4td" path="res://scenes/player.tscn" id="3_gldc4"]
+[ext_resource type="Texture2D" uid="uid://fw4dra7cwhe8" path="res://asset/icons.png" id="4_2klcf"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_0cso3"]
 texture = ExtResource("2_gldc4")
@@ -132,12 +134,119 @@ terrain_set_0/terrain_0/name = "Terrain 0"
 terrain_set_0/terrain_0/color = Color(0.48300993, 0.36790356, 9.62615e-08, 1)
 sources/0 = SubResource("TileSetAtlasSource_0cso3")
 
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_gldc4"]
-texture = ExtResource("2_gldc4")
-3:2/0 = 0
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_2klcf"]
+texture = ExtResource("3_0cso3")
+0:0/0 = 0
+0:0/0/terrain_set = 0
+0:0/0/terrains_peering_bit/right_side = 0
+0:0/0/terrains_peering_bit/bottom_right_corner = 0
+0:0/0/terrains_peering_bit/bottom_side = 0
+1:0/0 = 0
+1:0/0/terrain_set = 0
+1:0/0/terrains_peering_bit/right_side = 0
+1:0/0/terrains_peering_bit/bottom_right_corner = 0
+1:0/0/terrains_peering_bit/bottom_side = 0
+1:0/0/terrains_peering_bit/bottom_left_corner = 0
+1:0/0/terrains_peering_bit/left_side = 0
+2:0/0 = 0
+2:0/0/terrain_set = 0
+2:0/0/terrains_peering_bit/bottom_side = 0
+2:0/0/terrains_peering_bit/bottom_left_corner = 0
+2:0/0/terrains_peering_bit/left_side = 0
+3:0/0 = 0
+3:0/0/terrain_set = 0
+3:0/0/terrains_peering_bit/right_side = 0
+3:0/0/terrains_peering_bit/bottom_side = 0
+3:0/0/terrains_peering_bit/bottom_left_corner = 0
+3:0/0/terrains_peering_bit/left_side = 0
+3:0/0/terrains_peering_bit/top_left_corner = 0
+3:0/0/terrains_peering_bit/top_side = 0
+3:0/0/terrains_peering_bit/top_right_corner = 0
+4:0/0 = 0
+4:0/0/terrain_set = 0
+4:0/0/terrains_peering_bit/right_side = 0
+4:0/0/terrains_peering_bit/bottom_right_corner = 0
+4:0/0/terrains_peering_bit/bottom_side = 0
+4:0/0/terrains_peering_bit/left_side = 0
+4:0/0/terrains_peering_bit/top_left_corner = 0
+4:0/0/terrains_peering_bit/top_side = 0
+4:0/0/terrains_peering_bit/top_right_corner = 0
+0:1/0 = 0
+0:1/0/terrain_set = 0
+0:1/0/terrains_peering_bit/right_side = 0
+0:1/0/terrains_peering_bit/bottom_right_corner = 0
+0:1/0/terrains_peering_bit/bottom_side = 0
+0:1/0/terrains_peering_bit/top_side = 0
+0:1/0/terrains_peering_bit/top_right_corner = 0
+1:1/0 = 0
+1:1/0/terrain_set = 0
+1:1/0/terrains_peering_bit/right_side = 0
+1:1/0/terrains_peering_bit/bottom_right_corner = 0
+1:1/0/terrains_peering_bit/bottom_side = 0
+1:1/0/terrains_peering_bit/bottom_left_corner = 0
+1:1/0/terrains_peering_bit/left_side = 0
+1:1/0/terrains_peering_bit/top_left_corner = 0
+1:1/0/terrains_peering_bit/top_side = 0
+1:1/0/terrains_peering_bit/top_right_corner = 0
+2:1/0 = 0
+2:1/0/terrain_set = 0
+2:1/0/terrains_peering_bit/bottom_side = 0
+2:1/0/terrains_peering_bit/bottom_left_corner = 0
+2:1/0/terrains_peering_bit/left_side = 0
+2:1/0/terrains_peering_bit/top_left_corner = 0
+2:1/0/terrains_peering_bit/top_side = 0
+3:1/0 = 0
+3:1/0/terrain_set = 0
+3:1/0/terrains_peering_bit/right_side = 0
+3:1/0/terrains_peering_bit/bottom_right_corner = 0
+3:1/0/terrains_peering_bit/bottom_side = 0
+3:1/0/terrains_peering_bit/bottom_left_corner = 0
+3:1/0/terrains_peering_bit/left_side = 0
+3:1/0/terrains_peering_bit/top_left_corner = 0
+3:1/0/terrains_peering_bit/top_side = 0
+4:1/0 = 0
+4:1/0/terrain_set = 0
+4:1/0/terrains_peering_bit/right_side = 0
+4:1/0/terrains_peering_bit/bottom_right_corner = 0
+4:1/0/terrains_peering_bit/bottom_side = 0
+4:1/0/terrains_peering_bit/bottom_left_corner = 0
+4:1/0/terrains_peering_bit/left_side = 0
+4:1/0/terrains_peering_bit/top_side = 0
+4:1/0/terrains_peering_bit/top_right_corner = 0
+0:2/0 = 0
+0:2/0/terrain_set = 0
+0:2/0/terrains_peering_bit/right_side = 0
+0:2/0/terrains_peering_bit/top_side = 0
+0:2/0/terrains_peering_bit/top_right_corner = 0
+1:2/0 = 0
+1:2/0/terrain_set = 0
+1:2/0/terrains_peering_bit/right_side = 0
+1:2/0/terrains_peering_bit/left_side = 0
+1:2/0/terrains_peering_bit/top_left_corner = 0
+1:2/0/terrains_peering_bit/top_side = 0
+1:2/0/terrains_peering_bit/top_right_corner = 0
+2:2/0 = 0
+2:2/0/terrain_set = 0
+2:2/0/terrains_peering_bit/left_side = 0
+2:2/0/terrains_peering_bit/top_left_corner = 0
+2:2/0/terrains_peering_bit/top_side = 0
 
 [sub_resource type="TileSet" id="TileSet_5c0fr"]
-sources/0 = SubResource("TileSetAtlasSource_gldc4")
+terrain_set_0/mode = 0
+terrain_set_0/terrain_0/name = "Terrain 0"
+terrain_set_0/terrain_0/color = Color(0.5, 0.34375, 0.25, 1)
+sources/1 = SubResource("TileSetAtlasSource_2klcf")
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_2lpho"]
+texture = ExtResource("4_2klcf")
+0:0/0 = 0
+
+[sub_resource type="TileSet" id="TileSet_0cso3"]
+sources/0 = SubResource("TileSetAtlasSource_2lpho")
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qllh1"]
+atlas = ExtResource("4_2klcf")
+region = Rect2(0, 0, 16, 16)
 
 [node name="Map" type="Node2D" unique_id=1104911962]
 script = ExtResource("1_paxxb")
@@ -151,19 +260,58 @@ z_index = 1
 scale = Vector2(3, 3)
 tile_set = SubResource("TileSet_5c0fr")
 
+[node name="Flags" type="TileMapLayer" parent="." unique_id=2146208117]
+z_index = 2
+scale = Vector2(3, 3)
+tile_set = SubResource("TileSet_0cso3")
+
 [node name="Player" parent="." unique_id=751643800 instance=ExtResource("3_gldc4")]
 
 [node name="PlayerStamina" type="Timer" parent="." unique_id=2118840206]
 wait_time = 3.0
 one_shot = true
 
-[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=2099293203]
+[node name="UI" type="CanvasLayer" parent="." unique_id=2099293203]
 
-[node name="Label" type="Label" parent="CanvasLayer" unique_id=1460332932]
-anchors_preset = 2
-anchor_top = 1.0
+[node name="MarginContainer" type="MarginContainer" parent="UI" unique_id=1200359202]
+anchors_preset = 15
+anchor_right = 1.0
 anchor_bottom = 1.0
-offset_top = -23.0
-offset_right = 1.0
-grow_vertical = 0
-text = "days left"
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="DayCount" type="Label" parent="UI/MarginContainer" unique_id=1460332932]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 8
+text = "10 days left"
+
+[node name="Flags" type="HBoxContainer" parent="UI/MarginContainer" unique_id=708038869]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 8
+
+[node name="TextureRect" type="TextureRect" parent="UI/MarginContainer/Flags" unique_id=912523351]
+layout_mode = 2
+texture = SubResource("AtlasTexture_qllh1")
+expand_mode = 3
+
+[node name="FlagCount" type="Label" parent="UI/MarginContainer/Flags" unique_id=1673870039]
+layout_mode = 2
+size_flags_horizontal = 8
+text = "5 flags"
+
+[node name="ScreenTransition" type="CanvasLayer" parent="." unique_id=492418699]
+visible = false
+
+[node name="ColorRect" type="ColorRect" parent="ScreenTransition" unique_id=1571628453]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0)

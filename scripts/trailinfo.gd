@@ -11,22 +11,3 @@ var map := {}
 var tile_presets := {
 	
 }
-
-# Generates map
-func generate_map():
-	# First generates all tile locations
-	var row_total = randi_range(30,35)
-	var row_count = 0
-	var last_row_info = {"offset": 0, "length": 17}
-	
-	while row_count <= row_total:
-		var row_length = clampi(randi_range(-1, 1) + last_row_info.length, 15, 20)
-		var row_offset = randi_range(-2,2) + last_row_info.offset
-		for i in range(row_length):
-			map[Vector2(i + row_offset, -1 * row_count)] = "true"
-			
-		row_count += 1
-		last_row_info.offset = row_offset
-		last_row_info.length = row_length
-		
-	return "please await properly damn it"
