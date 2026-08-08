@@ -23,7 +23,7 @@ func generate_map():
 		var row_length = clampi(randi_range(-1, 1) + last_row_info.length, 15, 20)
 		var row_offset = randi_range(-2,2) + last_row_info.offset
 		for i in range(row_length):
-			map[Vector2(i + row_offset, row_count)] = "true"
+			map[Vector2(i + row_offset, -1 * row_count)] = "true"
 			
 		row_count += 1
 		last_row_info.offset = row_offset

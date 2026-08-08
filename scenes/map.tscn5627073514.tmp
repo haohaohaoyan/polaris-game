@@ -112,18 +112,6 @@ texture = ExtResource("2_gldc4")
 2:2/0/terrains_peering_bit/left_side = 0
 2:2/0/terrains_peering_bit/top_left_corner = 0
 2:2/0/terrains_peering_bit/top_side = 0
-6:1/0 = 0
-6:1/0/terrain_set = 0
-6:1/0/probability = 0.3
-6:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
-6:1/0/terrains_peering_bit/right_side = 0
-6:1/0/terrains_peering_bit/bottom_right_corner = 0
-6:1/0/terrains_peering_bit/bottom_side = 0
-6:1/0/terrains_peering_bit/bottom_left_corner = 0
-6:1/0/terrains_peering_bit/left_side = 0
-6:1/0/terrains_peering_bit/top_left_corner = 0
-6:1/0/terrains_peering_bit/top_side = 0
-6:1/0/terrains_peering_bit/top_right_corner = 0
 
 [sub_resource type="TileSet" id="TileSet_u8vuu"]
 physics_layer_0/collision_layer = 1
@@ -143,7 +131,8 @@ sources/0 = SubResource("TileSetAtlasSource_gldc4")
 script = ExtResource("1_paxxb")
 
 [node name="Ground" type="TileMapLayer" parent="." unique_id=1554865747]
-scale = Vector2(3, 3)
+scale = Vector2(9, 9)
+tile_map_data = PackedByteArray(0, 0, 254, 255, 0, 0, 0, 0, 2, 0, 2, 0, 0, 0, 255, 255, 0, 0, 0, 0, 2, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 2, 0, 0, 0, 1, 0, 0, 0, 0, 0, 2, 0, 2, 0, 0, 0, 2, 0, 0, 0, 0, 0, 2, 0, 2, 0, 0, 0)
 tile_set = SubResource("TileSet_u8vuu")
 
 [node name="ShadowOverlay" type="TileMapLayer" parent="." unique_id=638059696]
@@ -152,18 +141,3 @@ scale = Vector2(3, 3)
 tile_set = SubResource("TileSet_5c0fr")
 
 [node name="Player" parent="." unique_id=751643800 instance=ExtResource("3_gldc4")]
-
-[node name="PlayerStamina" type="Timer" parent="." unique_id=2118840206]
-wait_time = 3.0
-one_shot = true
-
-[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=2099293203]
-
-[node name="Label" type="Label" parent="CanvasLayer" unique_id=1460332932]
-anchors_preset = 2
-anchor_top = 1.0
-anchor_bottom = 1.0
-offset_top = -23.0
-offset_right = 1.0
-grow_vertical = 0
-text = "days left"
