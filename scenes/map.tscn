@@ -378,7 +378,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/margin_left = 5
-theme_override_constants/margin_top = 5
+theme_override_constants/margin_top = 100
 theme_override_constants/margin_right = 5
 theme_override_constants/margin_bottom = 5
 
@@ -406,12 +406,20 @@ text = "8 flags"
 label_settings = ExtResource("6_2lpho")
 
 [node name="ConsumeLabel" type="Label" parent="UI/MarginContainer" unique_id=1468578741]
-visible = false
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 8
 text = "[Q] to gain 4 days worth of supplies"
 label_settings = ExtResource("6_2lpho")
+
+[node name="TutorialLabel" type="Label" parent="UI/MarginContainer" unique_id=49169244]
+layout_mode = 2
+size_flags_vertical = 0
+text = "WASD/Arrow key movement
+SPACE to place a flag that will show up above fog
+E to rotate between flag colors"
+label_settings = ExtResource("6_2lpho")
+horizontal_alignment = 1
 
 [node name="ScreenTransition" type="CanvasLayer" parent="." unique_id=492418699]
 visible = false

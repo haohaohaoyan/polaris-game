@@ -18,7 +18,7 @@ var row_total = 0
 func generate_map() -> Dictionary:
 	var map := {}
 	# First generates all tile locations
-	row_total = randi_range(5,6)
+	row_total = randi_range(25,30)
 	var row_count = 0
 	var last_row_info = {"offset": 0, "length": 17}
 	
@@ -101,6 +101,10 @@ func _ready() -> void:
 	# Random player color
 	$Player.modulate = [Color.RED, Color.ORANGE, Color.YELLOW, Color.GREEN, Color.BLUE, Color.PURPLE].pick_random()
 		
+	# Fade instructions out
+	var tuto_tween = ui.get_node("TutorialLabel").create_tween()
+	tuto_tween.tween_property(ui.get_node("TutorialLabel"), "modulate", Color(0,0,0,0), 8)
+	
 # Player-specific stuff
 var player_stamina = 14
 var player_flags = {
@@ -187,8 +191,10 @@ func _physics_process(_delta: float) -> void:
 	ui.get_node("ConsumeLabel").visible = $Player.is_resupply_available
 	
 	if $Player.is_resupply_available and Input.is_action_just_pressed("CONSUME"):
-		player_stamina += 4
+		player_stamina = min(player_stamina + 4, 14) # Max 14
 		ground_map.set_cell(ground_map.local_to_map(ground_map.to_local($Player.position)), 0, Vector2i(1,1))
+		# update UI to match
+		ui.get_node("DayCount").text = str(player_stamina) + " days left"
 		
 	# Check if you won (very crappy)
 	if ground_map.local_to_map(ground_map.to_local($Player.position)).y <= -3 * row_total:
@@ -204,7 +210,7 @@ func _physics_process(_delta: float) -> void:
 		$VictoryScreen/VBoxContainer/Replay.connect("pressed", func () :
 			for child in get_children():
 				child.queue_free()
-			get_tree().call_deferred("reload_current_scene")
+			get_tree().call_deferred("change_scene_to_file", "res://scenes/map.tscn")
 		)
 			
 func respawn():
