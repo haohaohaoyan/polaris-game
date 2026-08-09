@@ -12,11 +12,13 @@ const ROOM_SIZE = 3
 
 var player_start_pos = Vector2(0,0)
 
+var row_total = 0
+
 # Generates map
 func generate_map() -> Dictionary:
 	var map := {}
 	# First generates all tile locations
-	var row_total = randi_range(30,35)
+	row_total = randi_range(5,6)
 	var row_count = 0
 	var last_row_info = {"offset": 0, "length": 17}
 	
@@ -36,7 +38,7 @@ func generate_map() -> Dictionary:
 		
 	return map
 
-# Called when the node enters the scene tree for the first time.
+# Generate the persistent floor
 func _ready() -> void:
 	# Generate ground map
 	var map = generate_map()
@@ -46,6 +48,8 @@ func _ready() -> void:
 			for column in range(ROOM_SIZE):
 				ground_map.set_cell(tile * ROOM_SIZE + Vector2(row, column)
 				, 0, Vector2i(0,0))
+				$Grass.set_cell(tile * ROOM_SIZE + Vector2(row, column),
+				1, Vector2i(randi_range(0,2), 0))
 	
 	# Add surrounding empty tiles to fix terrain
 	var used_cells := []
@@ -62,11 +66,27 @@ func _ready() -> void:
 		]:
 			if not used_cells.has(cell + direction):
 				used_cells.append(cell + direction)
+				# add to grass layer as well
+				$Grass.set_cell(cell + direction,
+				1, Vector2i(randi_range(0,2), 0))
 	
 	ground_map.set_cells_terrain_connect(used_cells, 0, 0)
 	
 	# Create home tiles
 	ground_map.set_cell(player_start_pos * Vector2(3,0), 0, Vector2i(6,0))
+	for direction in [
+		Vector2.UP,
+		Vector2.RIGHT,
+		Vector2.DOWN,
+		Vector2.LEFT,
+		Vector2(1,1),
+		Vector2(-1,1),
+		Vector2(-1,-1),
+		Vector2(1,-1)
+	]:
+		if randf() <= 0.6:
+			ground_map.set_cell(player_start_pos * Vector2(3,0) + direction, 0, 
+			Vector2i(randi_range(6,7),randi_range(0,1)))
 	
 	# Blackout tiles
 	for ground_cell in ground_map.get_used_cells():
@@ -77,18 +97,22 @@ func _ready() -> void:
 		ground_map.map_to_local(player_start_pos * Vector2(3,0)) 
 		)
 	$PlayerStamina.start()
+	
+	# Random player color
+	$Player.modulate = [Color.RED, Color.ORANGE, Color.YELLOW, Color.GREEN, Color.BLUE, Color.PURPLE].pick_random()
 		
 # Player-specific stuff
 var player_stamina = 14
 var player_flags = {
 	"blue": 8,
-	"green": 2,
-	"red": 2,
+	"green": 5,
+	"red": 5,
 }
 
 var current_flag = "blue"
 const all_flags = ["blue", "red", "green"]
 
+# Main thing, ish.
 func _physics_process(_delta: float) -> void:
 	# Process overlay for revealing paths
 	var player_current_cell = overlay.local_to_map(overlay.to_local($Player.position))
@@ -151,32 +175,69 @@ func _physics_process(_delta: float) -> void:
 			# Player has ran out of stamina, retreat to base and restart
 			respawn()
 			
+	# Small chance to make trail
+	if randf() <= 0.02 and $Player.velocity.length() > 0:
+		var player_location = ground_map.local_to_map(ground_map.to_local($Player.position))
+		$Trail.set_cell(
+			player_location,
+			0, Vector2i(min($Trail.get_cell_atlas_coords(player_location).x + 1, 3), 0)
+			)
+			
+	# Show resupplies label and fill them
+	ui.get_node("ConsumeLabel").visible = $Player.is_resupply_available
+	
+	if $Player.is_resupply_available and Input.is_action_just_pressed("CONSUME"):
+		player_stamina += 4
+		ground_map.set_cell(ground_map.local_to_map(ground_map.to_local($Player.position)), 0, Vector2i(1,1))
+		
+	# Check if you won (very crappy)
+	if ground_map.local_to_map(ground_map.to_local($Player.position)).y <= -3 * row_total:
+		var victory_tween = create_tween()
+		$VictoryScreen.visible = true
+		victory_tween.tween_property($VictoryScreen/ColorRect, "color", Color(1,1,1,1), 1)
+		victory_tween.tween_property($VictoryScreen/VBoxContainer/Label.label_settings, 
+		"font_color", Color(0,0,0,1), 1)
+		victory_tween.tween_property($VictoryScreen/TextureRect, "modulate:a", 100, 0.2)
+		victory_tween.tween_property($VictoryScreen/ColorRect, "modulate:a", 0.7, 1)
+		victory_tween.parallel().tween_property($VictoryScreen/VBoxContainer/Replay, "modulate:a", 1, 1)
+		# Connect button to restarting scene
+		$VictoryScreen/VBoxContainer/Replay.connect("pressed", func () :
+			for child in get_children():
+				child.queue_free()
+			get_tree().call_deferred("reload_current_scene")
+		)
+			
 func respawn():
 	# Start screen transition
 	$ScreenTransition.visible = true
 	var transition_on = create_tween()
-	transition_on.tween_property($ScreenTransition/ColorRect, "color", Color(0,0,0,1), 0.2)
+	transition_on.tween_property($ScreenTransition/ColorRect, "color", Color(0,0,0,1), 0.4)
 	await transition_on.finished
 	
 	# reset player pos
-	$Player.position = ground_map.map_to_local(player_start_pos * Vector2(3,0)) 
+	$Player.global_position = ground_map.to_global(
+		ground_map.map_to_local(player_start_pos * Vector2(3,0)) 
+		)
 	$PlayerStamina.start()
+	$Player.modulate = [Color.RED, Color.ORANGE, Color.YELLOW, Color.GREEN, Color.BLUE, Color.PURPLE].pick_random()
 	# reset stamina
 	player_stamina = 14
 	ui.get_node("DayCount").text = str(player_stamina) + " days left"
 	# reset flags 
 	player_flags = {
 		"blue": 8,
-		"green": 2,
-		"red": 2,
+		"green": 5,
+		"red": 5,
 	}
+	# Update display anyway
+	ui.get_node("Flags/FlagCount").text = str(player_flags[current_flag]) + " flags"
 	# reset blackout
 	for ground_cell in ground_map.get_used_cells():
 		overlay.set_cell(ground_cell, 1, Vector2i(round(randf()) * 3,0))
 	
 	# Screen transition off
 	var transition_off = create_tween()
-	transition_off.tween_property($ScreenTransition/ColorRect, "color", Color(0,0,0,0), 0.2)
+	transition_off.tween_property($ScreenTransition/ColorRect, "color", Color(0,0,0,0), 0.4)
 	await transition_off.finished
 	$ScreenTransition.visible = false
 	

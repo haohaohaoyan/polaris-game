@@ -1,13 +1,21 @@
 [gd_scene format=3 uid="uid://cgi0bemhdm4td"]
 
-[ext_resource type="Script" uid="uid://dgc8h53jigvdi" path="res://scenes/player.gd" id="1_3vyb7"]
-[ext_resource type="Texture2D" uid="uid://dw4j3bxmeoo6p" path="res://icon.svg" id="2_g2els"]
+[ext_resource type="Script" uid="uid://dgc8h53jigvdi" path="res://scripts/player.gd" id="1_3vyb7"]
+[ext_resource type="Texture2D" uid="uid://cejfu6ruvr2d" path="res://asset/player.png" id="2_g2els"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_5c0fr"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_qhqgy"]
 atlas = ExtResource("2_g2els")
-region = Rect2(32, 32, 32, 32)
+region = Rect2(0, 0, 12, 12)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_g2els"]
+atlas = ExtResource("2_g2els")
+region = Rect2(0, 0, 12, 12)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dqkch"]
+atlas = ExtResource("2_g2els")
+region = Rect2(12, 0, 12, 12)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_5c0fr"]
 animations = [{
@@ -19,11 +27,20 @@ animations = [{
 "name": &"default",
 "speed": 5.0
 }, {
-"frames": [],
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_g2els")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dqkch")
+}],
 "loop": 1,
-"name": &"new_animation",
-"speed": 5.0
+"name": &"walk",
+"speed": 8.0
 }]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_qllh1"]
+radius = 20.0
 
 [node name="Player" type="CharacterBody2D" unique_id=751643800]
 script = ExtResource("1_3vyb7")
@@ -32,6 +49,16 @@ script = ExtResource("1_3vyb7")
 shape = SubResource("CircleShape2D_5c0fr")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=933504427]
+scale = Vector2(3, 3)
 sprite_frames = SubResource("SpriteFrames_5c0fr")
+animation = &"walk"
+frame_progress = 0.9600178
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=170095549]
+
+[node name="Area2D" type="Area2D" parent="." unique_id=1158872192]
+collision_layer = 2
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=68296947]
+shape = SubResource("CircleShape2D_qllh1")
