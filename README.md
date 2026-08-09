@@ -19,6 +19,8 @@ an actual text box to type notes into, but that's very tedious and breaks up the
 quite upset about how repetitive the core gameplay is, but I was inspired by the slow, steady feeling of progress 
 from dying repeatedly and reinforcing decisions in Celeste. Hopefully this game can do the same. 
 
+This game has NOT been playtested by anybody other than myself! Expect balancing issues. Please raise an issue if that happens.
+
 ## How to run
 play on web at https://haohaohaoyan.itch.io/a-path-of-our-own!
 there currently is no local executable, it's web only for now.
