@@ -19,6 +19,10 @@ an actual text box to type notes into, but that's very tedious and breaks up the
 quite upset about how repetitive the core gameplay is, but I was inspired by the slow, steady feeling of progress 
 from dying repeatedly and reinforcing decisions in Celeste. Hopefully this game can do the same. 
 
+## How to run
+play on web at https://haohaohaoyan.itch.io/a-path-of-our-own!
+there currently is no local executable, it's web only for now.
+
 ## Instructions
 WASD/Arrow keys to move
 SPACEBAR to place a flag
