@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="roady gamey"
-run/main_scene="uid://cx704vapv02vj"
+run/main_scene="uid://5ot0x6trxpkm"
 config/features=PackedStringArray("4.7", "Forward Plus")
 config/icon="res://icon.svg"
 

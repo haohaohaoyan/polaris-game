@@ -107,6 +107,7 @@ func _ready() -> void:
 	
 # Player-specific stuff
 var player_stamina = 14
+var player_distance_pb = 0
 var player_flags = {
 	"blue": 8,
 	"green": 5,
@@ -187,6 +188,16 @@ func _physics_process(_delta: float) -> void:
 			0, Vector2i(min($Trail.get_cell_atlas_coords(player_location).x + 1, 3), 0)
 			)
 			
+	# Update player elevation
+	var player_distance = ground_map.local_to_map(ground_map.to_local($Player.position)).y * -1
+	ui.get_node("VBoxContainer/DistanceLabel").text = "Current Distance: " + str(
+		player_distance
+		) + "u"
+		
+	if player_distance > player_distance_pb:
+		player_distance_pb = player_distance
+		ui.get_node("VBoxContainer/DistancePB").text = "Best Distance: " + str(player_distance_pb) + "u"
+			
 	# Show resupplies label and fill them
 	ui.get_node("ConsumeLabel").visible = $Player.is_resupply_available
 	
@@ -228,6 +239,8 @@ func respawn():
 	$Player.modulate = [Color.RED, Color.ORANGE, Color.YELLOW, Color.GREEN, Color.BLUE, Color.PURPLE].pick_random()
 	# reset stamina
 	player_stamina = 14
+	# reset distance
+	player_distance_pb = 0
 	ui.get_node("DayCount").text = str(player_stamina) + " days left"
 	# reset flags 
 	player_flags = {

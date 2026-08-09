@@ -1,0 +1,70 @@
+[gd_scene format=3 uid="uid://5ot0x6trxpkm"]
+
+[ext_resource type="Texture2D" uid="uid://cvqfthy662yri" path="res://asset/Shenandoah-National-Park_Matthew-BensonFlickr-Commons-e1627500429130.jpg" id="1_fgkus"]
+
+[sub_resource type="GDScript" id="GDScript_sa3yf"]
+script/source = "extends Control
+
+# Just connecting the button
+func _ready() -> void:
+	$MarginContainer/VBoxContainer/Button.pressed.connect(func():
+		get_tree().change_scene_to_file(\"res://scenes/map.tscn\"))
+"
+
+[sub_resource type="LabelSettings" id="LabelSettings_5c0fr"]
+font_size = 42
+font_color = Color(0, 0, 0, 1)
+
+[node name="TitleScreen" type="Control" unique_id=1876836476]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = SubResource("GDScript_sa3yf")
+
+[node name="TextureRect" type="TextureRect" parent="." unique_id=436447194]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_fgkus")
+
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=1799628090]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+theme_override_constants/margin_left = 30
+theme_override_constants/margin_top = 30
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer" unique_id=6092937]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer" unique_id=292997856]
+layout_mode = 2
+text = "A Path Of Our Own"
+label_settings = SubResource("LabelSettings_5c0fr")
+
+[node name="Button" type="Button" parent="MarginContainer/VBoxContainer" unique_id=1384690304]
+layout_mode = 2
+size_flags_horizontal = 0
+text = "play
+"
+
+[node name="Label" type="Label" parent="." unique_id=1650516985]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -288.0
+offset_top = -23.0
+grow_horizontal = 0
+grow_vertical = 0
+size_flags_horizontal = 8
+size_flags_vertical = 8
+text = "image by Appalachian Mountain Club"

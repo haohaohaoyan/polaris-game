@@ -1,4 +1,4 @@
-# A Trail Drawn By Ourselves
+# A Path of Our Own
 
 A game made for Hack Club's Horizons Polaris hackathon!
 
@@ -28,6 +28,7 @@ Q to gather wild supplies
 ## stack???
 - Godot engine. Can you believe it? 
 - Aseprite for all art
+- Real photos are images pulled from sites like Britannica Encyclopaedia
 
 Hackathon plan:
 - before sleep on 7th: finish base dying/respawning/flagging mechanic - DONE
